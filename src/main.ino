@@ -1,4 +1,4 @@
-#include <Neosegment.h>
+#include "Neosegment.h"
 #define SERIAL_BAUD 115200
 #define nDigits 6
 #define PIN 9
