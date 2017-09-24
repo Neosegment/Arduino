@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  // Fun loading loop
+  // Fun loading loop with a color wheel rotation
   for (int loadingLoop = 0; loadingLoop < 2; loadingLoop++) {
     for (int colorLoop = 0; colorLoop < 255; colorLoop++) {
       neosegment.setSegment(0, 0, Wheel((colorLoop*9 + 31) & 255));
