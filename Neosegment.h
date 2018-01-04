@@ -1,7 +1,10 @@
 #ifndef Neosegment_h
 #define Neosegment_h
 
-#include <Arduino.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#endif
+
 #include <Adafruit_NeoPixel.h> // Neosegment library is using Adafruit_NeoPixel library from https://github.com/adafruit/Adafruit_NeoPixel
 
 class Neosegment : public Adafruit_NeoPixel {
@@ -65,7 +68,7 @@ class Neosegment : public Adafruit_NeoPixel {
 /* 5 */ {1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0},
 /* 6 */ {1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
     };
-    
+
     const String _letterIndexes = "abcdefghijlnopqrstu";
 
     byte* _rArray;

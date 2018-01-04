@@ -1,14 +1,15 @@
-#include "Neosegment.h"
-#define SERIAL_BAUD 115200
-#define nDigits 6
-#define PIN 9
+#include <Neosegment.h>
 
-Neosegment neosegment(nDigits, PIN, 100);
+#define nDigits 12 // Number of digits you have connected (one Neosegment module consists of 2 digits)
+#define PIN 9 // Pin that Neosegment modules are connected to
+#define BRIGHTNESS 100 // Brightness value, from 0 to 255
+
+// Initialize Neosegment modules
+Neosegment neosegment(nDigits, PIN, BRIGHTNESS);
+
 uint16_t i, j;
 
 void setup() {
-  Serial.begin(SERIAL_BAUD);
-
   neosegment.begin();
   neosegment.clearAll();
 }
@@ -24,12 +25,12 @@ void loop() {
       neosegment.setSegment(1, 6, Wheel((colorLoop*9 + 31*5) & 255));
       neosegment.setSegment(1, 5, Wheel((colorLoop*9 + 31*6) & 255));
       neosegment.setSegment(0, 5, Wheel((colorLoop*9 + 31*7) & 255));
-      neosegment.setSegment(0, 4, Wheel((colorLoop*9 + 31*8) & 255));      
+      neosegment.setSegment(0, 4, Wheel((colorLoop*9 + 31*8) & 255));
       delay(10);
     }
   }
   neosegment.clearAll();
-  
+
   // Writes out "HELLO COLORS"
   neosegment.setDigit(0, 'h', 0xFF0000);
   delay(50);
@@ -40,9 +41,9 @@ void loop() {
   neosegment.setDigit(3, 'l', 0x00FF00);
   delay(50);
   neosegment.setDigit(4, 'o', 0x0000FF);
-  
+
   delay(500);
-  
+
   for (int digit = 0; digit < nDigits; digit++) {
      neosegment.clearDigit(digit);
      delay(50);
@@ -59,11 +60,11 @@ void loop() {
   neosegment.setDigit(4, 'r', 0x0000FF);
   delay(50);
   neosegment.setDigit(5, 's', 0xFFFFFF);
-  
+
   delay(1500);
-  
+
   neosegment.clearAll();
-    
+
   // Countdown from 10 to 0
   neosegment.setSegment(0, 3, 255, 255, 255);
   neosegment.setSegment(1, 3, 255, 255, 255);
@@ -116,7 +117,7 @@ void loop() {
   delay(1000);
 
   neosegment.clearAll();
-  
+
   // Animation from left to right
   for (int digit = 0; digit < nDigits; digit++) {
      neosegment.setSegment(digit, 1, Wheel((digit*40) & 255));
@@ -152,7 +153,7 @@ void loop() {
      neosegment.clearSegment(digit, 4);
      delay(50);
   }
-  
+
   neosegment.clearAll();
 
   delay(1000);
@@ -207,18 +208,18 @@ void loop() {
   for (int digit = 0; digit < nDigits; digit++) {
     neosegment.setDigit(digit, digit, Wheel((digit*40) & 255));
   }
-  
+
   for (int digit = 0; digit < nDigits; digit++) {
      neosegment.clearDigit(digit);
      delay(50);
   }
-  
+
   delay(4000);
-  
+
   neosegment.clearAll();
 }
 
-// Helper function that returns a hexadecimal color from a color wheel
+/* Returns a hexadecimal value of color wheel, based on input value ranging from 0 to 255 */
 uint32_t Wheel(byte WheelPos) {
   WheelPos = 255 - WheelPos;
   if(WheelPos < 85) {
