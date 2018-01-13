@@ -2,23 +2,32 @@
 
 This repository contains the Arduino library and simple demos for Neosegment Digit modules.
 
-## Connecting the modules 
+## Connecting the modules
 
-By default the Neosegment library assumes that Neosegment modules' data pin is connected to pin 9 on Arduino. You can easily change that assumption when instantiating the library in your code. 
+By default the Neosegment library assumes that Neosegment modules' data pin is connected to pin 9 on Arduino. You can easily change that assumption when instantiating the library in your code.
 
 Unless you set all segments to white at once, it should be safe to use +5V and GND of the Arduino to light up 1-5 modules (0-10 digits) in some single color on low brightness (values 1-100 for the brightness). If you plan to use a lot of color mixing on the whole strip of modules, be sure to use additional 5V power supply.
 
 ## Installing the library
 
-If you are using Arduino IDE, you should be able to open `main.ino` file as long as you have `Neosegment.cpp` and `Neosegment.h` file in the same folder. A better way to go is to compress `Neosegment.cpp` and `Neosegment.h` as a ZIP file and add it your Arduino IDE as a separate library. This way you can use Neosegment library in any other projects without copying these two files again and again.
-
-The `main.ino` file in `src` folder has a few demos of some animations, text and number displays. 
+If you are using Arduino IDE, you should be able to use Library Manager to find and install the library. You might need to install Adafruit Neopixel library as well in order for Neosegment library to work correctly
 
 Note: I use [PlatformIO](http://platformio.org/) for fast cross - compilation between Arduino, ESP8266 and similar architectures. It is highly recommended you check it out to save time compiling your Arduino projects.
 
+If you are using PlatfomIO, Neosegment library can be installed via its library manager as well:
+
+```
+lib_deps =
+  # Using a library name
+  Neosegment
+
+  # ... or using library Id
+  2068
+```
+
 ## Neosegment library set up
 
-There are three main parameters that you need to set when using Neosegment library in your projects: 
+There are three main parameters that you need to set when using Neosegment library in your projects:
 - Which pin the modules are connected to
 - How many **digits** you have available (each module contains 2 digits)
 - What brightness to set the modules to
@@ -31,7 +40,7 @@ Here is a snippet of code that you can use in your projects that use Neosegment 
 #define PIN 9               // Which Arduino pin is the Neosegment data pin connected to
 #define LEDbrightness 100   // Brightness is a value from 0 to 255
 
-Neosegment neosegment(nDigits, PIN, LEDbrightness); 
+Neosegment neosegment(nDigits, PIN, LEDbrightness);
 ...
 void setup() {
   neosegment.begin();     
@@ -66,7 +75,7 @@ neosegment.setDigit(2, 'l', 0xFF00FF);
 neosegment.setDigit(3, 'o', 0x00FF00);
 neosegment.setDigit(4, 'r', 0x0000FF);
 neosegment.setDigit(5, 's', 0xFFFFFF);
-  
+
 ```
 
 To control each individual segment of the modules to do something better than showing numbers or letters, you can use `setSegment` function. The function needs to know the address of the segment you want to light up and you can provide that information by specifying the digit index, segment index and desired color to set the segment to.
@@ -95,7 +104,13 @@ Neosegment modules have LEDs in the following order (the number signifies index)
       11111
 ```
 
+## Examples
 
- 
 
- 
+There are three main examples included in this repository:
+
+- DigitsOfPi, demonstrates basic display of numbers on Neosegment modules
+- Potentiometer, demonstrates input from potentiometer via interactive display of readings using Neosegment modules
+- SegmentAnimations, demonstrates some basic animations and effects
+
+You can switch between the examples by using Arduino IDE's File > Examples menu.
